@@ -1,0 +1,3 @@
+This app will create an animal sound board.  Whenever a animal is hovered, over, it will make that animals sound and animate the gif.
+
+Advanced requirements.  Add a button that mutes the audio, while the gif still plays on hover.

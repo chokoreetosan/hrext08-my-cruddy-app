@@ -1,3 +1,2 @@
-This app will create an animal sound board.  Whenever a animal is hovered, over, it will make that animals sound and animate the gif.
-
-Advanced requirements.  Add a button that mutes the audio, while the gif still plays on hover.
+This app will be an animal conference app.  The user will be presented with a table of available animals(name, type) to conference with.  Upon entering the animal's name, it will add a Gif image to the app of the animal.  Local storage will store the animals that have been added so upon refresh, the animals stay in conference.
+Advanced requirements.  Add a button that mutes the audio, while the gif still plays on hover.  Add a button to remove an animal from the conference.

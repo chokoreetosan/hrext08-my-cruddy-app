@@ -1,8 +1,24 @@
+var animals = [
+{name:'Parappa', type:'dog', status:'Inactive'},
+{name:'Meowth', type:'cat', status:'Inactive'},
+{name:'Kazooie', type:'bird', status:'Inactive'},
+{name:'Daxter', type:'ferret', status:'Inactive'},
+{name:'Gex', type:'lizard', status:'Inactive'},
+{name:'Diddy Kong', type:'monkey', status:'Inactive'},
+{name:'Pepper', type:'rabbit', status:'Inactive'}
+];
+
+var initialLoad = function(){
+for(var x = 0; x < animals.length;x++){
+localStorage.setItem(animals[x].name, JSON.stringify(animals[x]));
+}
+}()
+
 var loadLocalStorage = function () {
 	var keys = Object.keys(localStorage)
 	var htmlString = '';
 	for (var i = 0; i < keys.length; i++) {
-		htmlString += `<tr><td>${keys[i]}</td><td>${localStorage[keys[i]]}</tr></tr>`;
+		htmlString += `<tr><td>${keys[i]}</td><td>${JSON.parse(localStorage[keys[i]]).type}</tr><td>${JSON.parse(localStorage[keys[i]]).status}</td></tr>`;
 	}
 	$('tbody').html(htmlString)
 };
@@ -17,8 +33,16 @@ var updateStatusLabel = function(message) {
 $(document).ready(function () {
 	loadLocalStorage();
 
-	$('#btn-create').on('click', function(e) {
-		var key = $('#key').val();
+	$('#btn-invite').on('click', function(e) {
+		var name = $('#name').val();
+		if(localStorage.hasOwnProperty(name)){
+		updateStatusLabel(name + ' added to call');
+
+		}else{
+			updateStatusLabel('animal does not exist');
+		}
+
+/**		var key = $('#key').val();
 		var value = $('#value').val();
 		var keyExists = localStorage.getItem(key) !== null;
 
@@ -30,11 +54,11 @@ $(document).ready(function () {
 			createEntry(key, value);
 			updateStatusLabel('key created - ' + key);
 		}
-
+**/
 		loadLocalStorage();
 	});
 
-	$('#btn-update').on('click', function(e) {
+/**	$('#btn-update').on('click', function(e) {
 		var key = $('#key').val();
 		var value = $('#value').val();
 		var existingValue = localStorage.getItem(key)
@@ -70,7 +94,7 @@ $(document).ready(function () {
 
 		loadLocalStorage();
 	});	
-
+**/
 });
 /*
 

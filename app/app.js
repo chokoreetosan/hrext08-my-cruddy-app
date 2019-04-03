@@ -1,11 +1,11 @@
 var animals = [
-{name:'Parappa', type:'dog', status:'Inactive'},
-{name:'Meowth', type:'cat', status:'Inactive'},
-{name:'Kazooie', type:'bird', status:'Inactive'},
-{name:'Daxter', type:'ferret', status:'Inactive'},
-{name:'Gex', type:'lizard', status:'Inactive'},
-{name:'Diddy Kong', type:'monkey', status:'Inactive'},
-{name:'Pepper', type:'rabbit', status:'Inactive'}
+{name:'Parappa', type:'dog', status:'Inactive', feed:'gifs/corgi.gif'},
+{name:'Meowth', type:'cat', status:'Inactive', feed:'gifs/cat.gif'},
+{name:'Kazooie', type:'bird', status:'Inactive', feed:'gifs/cockatie.gif'},
+{name:'Daxter', type:'ferret', status:'Inactive', feed: 'gifs/ferret.gif'},
+{name:'Gex', type:'lizard', status:'Inactive', feed: 'gifs/lizard.gif'},
+{name:'Diddy Kong', type:'monkey', status:'Inactive', feed: 'gifs/monkey.gif'},
+{name:'Pepper', type:'rabbit', status:'Inactive', feed: 'gifs/rabbit.gif'}
 ];
 
 var initialLoad = function(){
@@ -17,10 +17,17 @@ localStorage.setItem(animals[x].name, JSON.stringify(animals[x]));
 var loadLocalStorage = function () {
 	var keys = Object.keys(localStorage)
 	var htmlString = '';
+	var htmlString2 = '';
 	for (var i = 0; i < keys.length; i++) {
 		htmlString += `<tr><td>${keys[i]}</td><td>${JSON.parse(localStorage[keys[i]]).type}</tr><td>${JSON.parse(localStorage[keys[i]]).status}</td></tr>`;
 	}
-	$('tbody').html(htmlString)
+	$('tbody').html(htmlString);
+	for(var j = 0; j < keys.length;j++){
+		if(JSON.parse(localStorage[keys[j]]).status === 'Active'){
+		htmlString2 += '<img src="' + JSON.parse(localStorage[keys[j]]).feed + '">';
+		}
+	}
+	$('#animalfeeds').html(htmlString2);
 };
 
 var updateStatusLabel = function(message) {
@@ -37,7 +44,9 @@ $(document).ready(function () {
 		var name = $('#name').val();
 		if(localStorage.hasOwnProperty(name)){
 		updateStatusLabel(name + ' added to call');
-
+		var temp = JSON.parse(localStorage[name]);
+		temp.status = 'Active';
+		localStorage.setItem(name, JSON.stringify(temp));
 		}else{
 			updateStatusLabel('animal does not exist');
 		}

@@ -14,37 +14,34 @@
 	<div class="container">
 		<form action="" method="" class="form">
 			<div class="form">
-				<label for="key">Enter key: </label>
-				<input type="text" name="key" id="key" required>
+				<label for="name">Enter Name: </label>
+				<input type="text" name="name" id="name" required>
 			</div>
-			<div class="form">
+	<!--		<div class="form">
 				<label for="value">Enter value: </label>
 				<input type="text" name="value" id="value" required>
-			</div>
+			</div>-->
 			<div class="form">
-				<button class="button" id="btn-create" type="button">Create</button>
-				<button class="button" id="btn-update" type="button">Update</button>
-				<button class="button" id="btn-delete" type="button">Delete</button>
+				<button class="button" id="btn-invite" type="button">Invite</button>
+<!---				<button class="button" id="btn-update" type="button">Update</button>
+				<button class="button" id="btn-delete" type="button">Delete</button>--->
 			</div>
 			<!-- clear button? -->
 		</form>	
 		<table>
 			<thead>
 				<tr>
-					<th>Key</th>
-					<th>Value</th>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Status<th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>test key</td>
-					<td>test value</td>
-				</tr>
+				
 			</tbody>
 		</table>
 	</div>
-	<div id="statusLabel">Status:</div>
-
+<div id="statusLabel">Status:</div>
 	<script src="app/app.js"></script>
   <!--
    table to view data

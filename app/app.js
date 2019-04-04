@@ -1,10 +1,10 @@
 var animals = [
-{name:'Parappa', type:'dog', status:'Inactive', feed:'gifs/corgi.gif'},
-{name:'Meowth', type:'cat', status:'Inactive', feed:'gifs/cat.gif'},
-{name:'Kazooie', type:'bird', status:'Inactive', feed:'gifs/cockatie.gif'},
+{name:'Parappa', type:'dog', status:'Inactive', feed:'gifs/corgi.gif', audio:'audio/dog.mp3'},
+{name:'Meowth', type:'cat', status:'Inactive', feed:'gifs/cat.gif', audio:'audio/cat.wav'},
+{name:'Kazooie', type:'bird', status:'Inactive', feed:'gifs/cockatie.gif', audio:'audio/bird.mp3'},
 {name:'Daxter', type:'ferret', status:'Inactive', feed: 'gifs/ferret.gif'},
 {name:'Gex', type:'lizard', status:'Inactive', feed: 'gifs/lizard.gif'},
-{name:'Diddy Kong', type:'monkey', status:'Inactive', feed: 'gifs/monkey.gif'},
+{name:'Diddy Kong', type:'monkey', status:'Inactive', feed: 'gifs/monkey.gif', style: 'object-fit:cover', audio:'audio/monkey.wav'},
 {name:'Pepper', type:'rabbit', status:'Inactive', feed: 'gifs/rabbit.gif'}
 ];
 
@@ -19,12 +19,12 @@ var loadLocalStorage = function () {
 	var htmlString = '';
 	var htmlString2 = '';
 	for (var i = 0; i < keys.length; i++) {
-		htmlString += `<tr><td>${keys[i]}</td><td>${JSON.parse(localStorage[keys[i]]).type}</tr><td>${JSON.parse(localStorage[keys[i]]).status}</td></tr>`;
+		htmlString += `<tr><td>${keys[i]}</td><td>${JSON.parse(localStorage[keys[i]]).type}</td><td>${JSON.parse(localStorage[keys[i]]).status}</td></tr>`;
 	}
 	$('tbody').html(htmlString);
 	for(var j = 0; j < keys.length;j++){
 		if(JSON.parse(localStorage[keys[j]]).status === 'Active'){
-		htmlString2 += '<img src="' + JSON.parse(localStorage[keys[j]]).feed + '">';
+		htmlString2 += '<img src="' + JSON.parse(localStorage[keys[j]]).feed + '" style="width:300px;height:300px;' + (JSON.parse(localStorage[keys[j]]).hasOwnProperty('style')? JSON.parse(localStorage[keys[j]]).style: '')+'">';
 		}
 	}
 	$('#animalfeeds').html(htmlString2);
@@ -51,21 +51,24 @@ $(document).ready(function () {
 			updateStatusLabel('animal does not exist');
 		}
 
-/**		var key = $('#key').val();
-		var value = $('#value').val();
-		var keyExists = localStorage.getItem(key) !== null;
-
-		if (keyExists) {
-			updateStatusLabel('key already exists, please use update button instead! :D');
-		} else if (key === '') {
-			updateStatusLabel('invalid input!')
-		}else {
-			createEntry(key, value);
-			updateStatusLabel('key created - ' + key);
-		}
-**/
 		loadLocalStorage();
 	});
+		$('#btn-remove').on('click', function(e){
+			var name = $('#name').val();
+			if(localStorage.hasOwnProperty(name)){
+				if(JSON.parse(localStorage[name]).status === 'Active'){
+					var temp = JSON.parse(localStorage[name]);
+					temp.status ='Inactive';
+					localStorage.setItem(name, JSON.stringify(temp));
+					updateStatusLabel(name + ' removed from call');
+				}else{
+					updateStatusLabel(name + ' is not in call');
+				}
+			}else{
+				updateStatusLabel('animal does not exist');
+			}
+			loadLocalStorage();
+		})
 
 /**	$('#btn-update').on('click', function(e) {
 		var key = $('#key').val();

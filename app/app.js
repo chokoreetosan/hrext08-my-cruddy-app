@@ -24,7 +24,7 @@ var loadLocalStorage = function () {
 	$('tbody').html(htmlString);
 	for(var j = 0; j < keys.length;j++){
 		if(JSON.parse(localStorage[keys[j]]).status === 'Active'){
-		htmlString2 += '<img class = \'animalfeeds\' src="' + JSON.parse(localStorage[keys[j]]).feed + '" style="width:300px;height:300px;' + (JSON.parse(localStorage[keys[j]]).hasOwnProperty('style')? JSON.parse(localStorage[keys[j]]).style: '')+'">';
+		htmlString2 += '<img src="' + JSON.parse(localStorage[keys[j]]).feed + '" style="width:300px;height:300px;' + (JSON.parse(localStorage[keys[j]]).hasOwnProperty('style')? JSON.parse(localStorage[keys[j]]).style: '')+'">';
 		htmlString2 += (JSON.parse(localStorage[keys[j]]).hasOwnProperty('audio')? '<audio src="' + JSON.parse(localStorage[keys[j]]).audio + '" loop autoplay' + (JSON.parse(localStorage[keys[j]]).mute ==='yes'? ' muted': '' ) + '></audio>' : '');
 		}
 	}
@@ -74,6 +74,7 @@ $(document).ready(function () {
 			var name = $('#name').val();
 			if(localStorage.hasOwnProperty(name)){
 				if(JSON.parse(localStorage[name]).hasOwnProperty('audio')){
+						updateStatusLabel(name + ' has been ' + (JSON.parse(localStorage[name]).mute ==='yes'? "unmuted": "muted"));
 						var temp = JSON.parse(localStorage[name]);
 						temp.mute = (temp.mute === 'yes'? 'no': 'yes');
 						localStorage.setItem(name, JSON.stringify(temp));
@@ -85,5 +86,6 @@ $(document).ready(function () {
 			}
 		loadLocalStorage();
 		})
+		$()
 
 });

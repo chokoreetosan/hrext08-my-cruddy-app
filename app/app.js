@@ -1,10 +1,10 @@
 var animals = [
-{name:'Parappa', type:'dog', status:'Inactive', feed:'gifs/corgi.gif', audio:'audio/dog.mp3'},
-{name:'Meowth', type:'cat', status:'Inactive', feed:'gifs/cat.gif', audio:'audio/cat.wav'},
-{name:'Kazooie', type:'bird', status:'Inactive', feed:'gifs/cockatie.gif', audio:'audio/bird.mp3'},
+{name:'Parappa', type:'dog', status:'Inactive', feed:'gifs/corgi.gif', audio:'audio/dog.mp3', mute:'no'},
+{name:'Meowth', type:'cat', status:'Inactive', feed:'gifs/cat.gif', audio:'audio/cat.wav', mute:'no'},
+{name:'Kazooie', type:'bird', status:'Inactive', feed:'gifs/cockatie.gif', audio:'audio/bird.mp3', mute:'no'},
 {name:'Daxter', type:'ferret', status:'Inactive', feed: 'gifs/ferret.gif'},
 {name:'Gex', type:'lizard', status:'Inactive', feed: 'gifs/lizard.gif'},
-{name:'Diddy Kong', type:'monkey', status:'Inactive', feed: 'gifs/monkey.gif', style: 'object-fit:cover', audio:'audio/monkey.wav'},
+{name:'Diddy Kong', type:'monkey', status:'Inactive', feed: 'gifs/monkey.gif', style: 'object-fit:cover', audio:'audio/monkey.wav', mute:'no'},
 {name:'Pepper', type:'rabbit', status:'Inactive', feed: 'gifs/rabbit.gif'}
 ];
 
@@ -19,12 +19,13 @@ var loadLocalStorage = function () {
 	var htmlString = '';
 	var htmlString2 = '';
 	for (var i = 0; i < keys.length; i++) {
-		htmlString += `<tr><td>${keys[i]}</td><td>${JSON.parse(localStorage[keys[i]]).type}</td><td>${JSON.parse(localStorage[keys[i]]).status}</td></tr>`;
+		htmlString += `<tr><td>${keys[i]}</td><td>${JSON.parse(localStorage[keys[i]]).type}</td><td>${JSON.parse(localStorage[keys[i]]).status}</td><td>${(JSON.parse(localStorage[keys[i]]).hasOwnProperty('audio')?'Yes' : 'No')}</td></tr>`;
 	}
 	$('tbody').html(htmlString);
 	for(var j = 0; j < keys.length;j++){
 		if(JSON.parse(localStorage[keys[j]]).status === 'Active'){
 		htmlString2 += '<img src="' + JSON.parse(localStorage[keys[j]]).feed + '" style="width:300px;height:300px;' + (JSON.parse(localStorage[keys[j]]).hasOwnProperty('style')? JSON.parse(localStorage[keys[j]]).style: '')+'">';
+		htmlString2 += '<audio src="' + JSON.parse(localStorage[keys[j]]).audio + '" loop autoplay></audio>';
 		}
 	}
 	$('#animalfeeds').html(htmlString2);
